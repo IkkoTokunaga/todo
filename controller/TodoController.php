@@ -19,20 +19,21 @@ class TodoController
 
     public function new()
     {
-        $title = $_POST['title'];
-        $detail = $_POST['detail'];
+        $data = [
+            "title" => $_POST['title'],
+            "detail" => $_POST['detail']
+        ];
 
-        $error_msg = [];
-        if(empty($title)){
-            $error_msg[] = "タイトルが空です";
-        }
-        if(empty($detail)){
-            $error_msg[] = "詳細が空です";
-        }
-        if(count($error_msg) > 0){
-            $params = sprintf("?title=%s&detail=%s", $title, $detail);
+        $validation = new TodaValidation();
+        $validation->setData($data);
+        if($validation->check() === false){
+            $params = sprintf("?title=%s&detail=%s", $data['title'], $data['detail']);
             header("Location: ./new.php" . $params);
         }
+//ちゃんとvalidationを通過した正常値という意味も含めて
+        $validate_data = $validation->getData();
+        $title = $validate_data['title'];
+        $detail = $validate_data['detail'];
 
         $todo = new Todo();
         $todo->setTitle($title);
