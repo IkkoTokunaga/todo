@@ -9,6 +9,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $action = new TodoController();
     $action->new();
 }
+
+$title = '';
+$detail = '';
+if($_SERVER["REQUEST_METHOD"]==="GET"){
+    if(isset($_GET['title'])) { 
+        $title = $_GET['title'];
+    } 
+    if(isset($_GET['detail'])) {
+    $detail = $_GET['detail']; 
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -25,13 +36,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div>
             <div>タイトル</div>
             <div>
-                <input type="text" name="title">
+                <input type="text" name="title"
+                value="<?= $title; ?>">
             </div>
         </div>
         <div>
             <div>詳細</div>
             <div>
-                <textarea name="detail" id="" cols="30" rows="10"></textarea>
+                <textarea name="detail" id="" cols="30" rows="10"><?= $detail ?></textarea>
             </div>
         </div>
         <button type="submit">登録</button>

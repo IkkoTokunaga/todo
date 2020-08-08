@@ -22,13 +22,26 @@ class TodoController
         $title = $_POST['title'];
         $detail = $_POST['detail'];
 
+        $error_msg = [];
+        if(empty($title)){
+            $error_msg[] = "タイトルが空です";
+        }
+        if(empty($detail)){
+            $error_msg[] = "詳細が空です";
+        }
+        if(count($error_msg) > 0){
+            $params = sprintf("?title=%s&detail=%s", $title, $detail);
+            header("Location: ./new.php" . $params);
+        }
+
         $todo = new Todo();
         $todo->setTitle($title);
         $todo->setDetail($detail);
         $result = $todo->save();
 
         if($result === false) {
-            header("Location: ./new.php");
+            $params = sprintf("?title=%s&detail=%s", $title, $detail);
+            header("Location: ./new.php" . $params);
             }
             header( "Location: ./index.php");
     }
