@@ -77,11 +77,22 @@ class Todo
             $this->title,
             $this->detail
         );
-        $dbh = new PDO(DSN, USERNAME, PASSWORD);
-        $stmt = $dbh->prepare($query);
-        $result = $stmt->execute();
 
-        return $result;
+        try{
+            $dbh = new PDO(DSN, USERNAME, PASSWORD);
+
+            $dbh->beginTransaction();
+
+            $stmt = $dbh->prepare($query);
+            $result = $stmt->execute();
+    
+            $dbh->commit();
+            return $result;
+        } catch(PDOException $e) {
+
+            $dbh->rollBack();
+            echo $e->getMessage();
+        }
     }
 
 }
