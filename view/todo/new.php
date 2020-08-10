@@ -4,7 +4,6 @@
 require_once '../../config/database.php';
 require_once '../../model/Todo.php';
 require_once '../../controller/TodoController.php';
-require_once '../../validation/TodoValidation.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $action = new TodoController();

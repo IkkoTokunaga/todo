@@ -33,6 +33,9 @@ $todo = $action->detail();
                     </tr>
                 </tbody>
             </table>
+            <div>
+                <button><a href="./edit.php?todo_id=<?= $_GET['todo_id']; ?>">編集</a></button>
+            </div>
         </body>
 
         </html>

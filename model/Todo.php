@@ -64,8 +64,9 @@ class Todo
             'SELECT * FROM common.todos WHERE id = %s', $todo_id
         );
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
-        $stmh = $dbh->query($query);
-        return $stmh->fetch(PDO::FETCH_ASSOC);
+        $stmt = $dbh->query($query);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     public function save()
@@ -88,6 +89,30 @@ class Todo
     
             $dbh->commit();
             return $result;
+        } catch(PDOException $e) {
+
+            $dbh->rollBack();
+            echo $e->getMessage();
+        }
+    }
+
+    public function update()
+    {
+        $query = sprintf(
+            "UPDATE `todos` SET title = %s, detail = %s",
+            $this->title,
+            $this->detail
+        );
+
+        try{
+            $dbh = new PDO(DSN, USERNAME, PASSWORD);
+
+            $dbh->beginTransaction();
+
+            $stmt = $dbh->prepare($query);
+            $stmt->execute();
+    
+            $dbh->commit();
         } catch(PDOException $e) {
 
             $dbh->rollBack();
