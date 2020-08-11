@@ -63,7 +63,6 @@ class TodoController
             "title" => $_POST['title'],
             "detail" => $_POST['detail']
         ];
-        // var_dump($data);
         $validation = new TodoValidation();
         $validation->setData($data);
         $check = $validation->check();
@@ -91,6 +90,30 @@ class TodoController
         $update->setTitle($title);
         $update->setDetail($detail);
         $update->update($todo_id);
+        header("Location: ./index.php");
+    }
+
+    public function delete()
+    {
+        $todo_id = $_GET['todo_id'];
+        $is_exist = Todo::isExistById($todo_id);
+        if(!$is_exist){
+            session_start();
+            $_SESSION['error_msgs'] = [
+                sprintf("id=%sに該当するレコードがありません", $todo_id)
+            ];
+            header("Location: ./index.php");
+        }
+
+        $todo = new Todo();
+        $todo->setId($todo_id);
+        $result = $todo->delete();
+        if($result === false) {
+            $_SESSION['error_msgs'] = [
+                sprintf("削除に失敗しました。 id=%s", $todo_id)
+            ];
+        }
+
         header("Location: ./index.php");
     }
 }

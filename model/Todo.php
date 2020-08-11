@@ -5,7 +5,16 @@ class Todo
     public $title;
     public $detail;
     public $status;
+    public $id;
 
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function setId($todo_id)
+    {
+        $this->id = $todo_id;
+    }
     public function getTitle()
     {
         return $this->title;
@@ -120,5 +129,38 @@ class Todo
             $db->rollBack();
             echo $e->getMessage();
         }
+    }
+
+    public static function isExistById($todo_id)
+    {
+        $db = new PDO(DSN, USERNAME, PASSWORD);
+        $query = sprintf("SELECT * FROM todos WHERE id=%s", $todo_id);
+        $stmt = $db->query($query);
+        if(!$stmt){
+            return false;
+        }
+        return true;
+    }
+
+    public function delete()
+    {
+        try {
+            $db = new PDO(DSN, USERNAME, PASSWORD);
+
+            $db->beginTransaction();
+            $query = sprintf("DELETE FROM todos WHERE id=%s", $this->id);
+
+            $stmt = $db->prepare($query);
+            $result = $stmt->execute();
+
+            $db->commit();
+
+        } catch (PDOException $e) {
+            $db->rollBack();
+
+            echo $e->getMessage();
+            $result = false;
+        }
+        return $result;
     }
 }
