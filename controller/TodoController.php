@@ -21,6 +21,7 @@ class TodoController
         $validation->setData($data);
         $check = $validation->check();
         if($check === false){
+            $_SESSION['error_msgs'] = $validation->getErrorMessage();
             $params = sprintf("?title=%s&detail=%s", $data['title'], $data['detail']);
             header("Location: ./new.php" . $params);
             exit;
@@ -65,23 +66,31 @@ class TodoController
         // var_dump($data);
         $validation = new TodoValidation();
         $validation->setData($data);
-        if($validation->check() === false) {
-            $error_msgs = $validation->getErrorMessage();
-            session_start();
-            $_SESSION['error_msgs'] = $error_msgs;
-            $params = sprintf("?title=%s&detail=%s",
-            $data['title'],$data['detail']);
-            var_dump($data['title'],$data['detail']);
+        $check = $validation->check();
+        if($check === false) {
+            $_SESSION['error_msgs'] = $validation->getErrorMessage();
+            $params = sprintf("?todo_id=%d",
+            $todo_id);
             header("Location: ./edit.php" . $params);
             exit;
         }
+        $validation = new TodoValidation();
+        $validation->setData($data);
+        $check = $validation->check();
+        if($check === false){
+            $_SESSION['error_msgs'] = $validation->getErrorMessage();
+            $params = sprintf("?title=%s&detail=%s", $data['title'], $data['detail']);
+            header("Location: ./edit.php" . $params);
+            exit;
+        }
+
         $validate_data = $validation->getData();
         $title = $validate_data['title'];
         $detail = $validate_data['detail'];
         $update = new Todo();
         $update->setTitle($title);
         $update->setDetail($detail);
-        $update->update();
+        $update->update($todo_id);
         header("Location: ./index.php");
     }
 }

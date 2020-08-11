@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 require_once '../../config/database.php';
 require_once '../../model/Todo.php';
@@ -19,7 +19,14 @@ if($_SERVER["REQUEST_METHOD"]==="GET"){
     if(isset($_GET['detail'])) {
     $detail = $_GET['detail']; 
     }
+    
 }
+
+if(isset($_SESSION['error_msgs'])){
+    $error_msgs = $_SESSION['error_msgs'];
+    unset($_SESSION['error_msgs']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -46,6 +53,12 @@ if($_SERVER["REQUEST_METHOD"]==="GET"){
                 <textarea name="detail" id="" cols="30" rows="10"><?= $detail ?></textarea>
             </div>
         </div>
+            <?php if(isset($error_msgs)): ?>
+                <?php foreach($error_msgs as $error_msg): ?>
+                <?= $error_msg; ?>
+                </br>
+                <?php endforeach; ?>
+            <?php endif; ?>
         <button type="submit">登録</button>
     </form>
     <a href="./index.php">戻る</a>

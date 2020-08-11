@@ -1,14 +1,16 @@
 <?php
+
+session_start();
 require_once '../../config/database.php';
 require_once '../../model/Todo.php';
 require_once '../../controller/TodoController.php';
 
-if(isset($_SESSION['error_msgs'])){
-    session_start();
-    $error_msgs = $_SESSION['erroe_msgs'];
+if (isset($_SESSION['error_msgs'])) {
+    $error_msgs = $_SESSION['error_msgs'];
     unset($_SESSION['error_msgs']);
 }
-// if(isset($_POST['update'])){
+
+// if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $action = new TodoController();
     $todo = $action->edit();
 // }
@@ -39,19 +41,14 @@ if(isset($_SESSION['error_msgs'])){
                 <textarea name="detail" id="" cols="30" rows="10"><?= $todo['detail']; ?></textarea>
             </div>
         </div>
+        <?php if (isset($error_msgs)) : ?>
+            <?php foreach ($error_msgs as $error_msg) : ?>
+                <?= $error_msg; ?>
+                </br>
+            <?php endforeach; ?>
+        <?php endif; ?>
         <button type="submit" name="update">登録</button>
     </form>
-    <?php if (isset($error_msgs)): ?>
-    <?php if ($error_msgs) : ?>
-        <div>
-            <ul>
-                <?php foreach ($error_msgs as $error_msg) : ?>
-                    <li><?= $error_msg; ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
-    <?php endif; ?>
 </body>
 
 </html>

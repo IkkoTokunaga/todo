@@ -61,7 +61,8 @@ class Todo
     public static function findById($todo_id)
     {
         $query = sprintf(
-            'SELECT * FROM common.todos WHERE id = %s', $todo_id
+            'SELECT * FROM common.todos WHERE id = %s',
+            $todo_id
         );
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
         $stmt = $dbh->query($query);
@@ -79,46 +80,45 @@ class Todo
             $this->detail
         );
 
-        try{
+        try {
             $dbh = new PDO(DSN, USERNAME, PASSWORD);
 
             $dbh->beginTransaction();
 
             $stmt = $dbh->prepare($query);
             $result = $stmt->execute();
-    
+
             $dbh->commit();
             return $result;
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
 
             $dbh->rollBack();
             echo $e->getMessage();
         }
     }
 
-    public function update()
+    public function update($todo_id)
     {
         $query = sprintf(
-            "UPDATE `todos` SET title = %s, detail = %s",
+            "UPDATE todos SET title='%s', detail='%s' WHERE id=%d",
             $this->title,
-            $this->detail
+            $this->detail,
+            $todo_id
         );
 
-        try{
-            $dbh = new PDO(DSN, USERNAME, PASSWORD);
+        try {
+            $db = new PDO(DSN, USERNAME, PASSWORD);
 
-            $dbh->beginTransaction();
+            $db->beginTransaction();
 
-            $stmt = $dbh->prepare($query);
+            $stmt = $db->prepare($query);
             $stmt->execute();
-    
-            $dbh->commit();
-        } catch(PDOException $e) {
 
-            $dbh->rollBack();
+            $db->commit();
+        } catch (PDOException $e) {
+
+            $db->rollBack();
             echo $e->getMessage();
         }
     }
-
 }
-
