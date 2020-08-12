@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+if(isset($_SESSION["error_msgs"])){
+    unset($_SESSION["error_msgs"]);
+}
 
 require_once '../../config/database.php';
 require_once '../../model/Todo.php';
