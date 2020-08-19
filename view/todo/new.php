@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require_once '../../config/config.php';
 require_once '../../config/database.php';
 require_once '../../model/Todo.php';
 require_once '../../controller/TodoController.php';
@@ -44,13 +44,13 @@ if(isset($_SESSION['error_msgs'])){
             <div>タイトル</div>
             <div>
                 <input type="text" name="title"
-                value="<?= $title; ?>">
+                value="<?= h($title); ?>">
             </div>
         </div>
         <div>
             <div>詳細</div>
             <div>
-                <textarea name="detail" id="" cols="30" rows="10"><?= $detail ?></textarea>
+                <textarea name="detail" id="" cols="30" rows="10"><?= h($detail); ?></textarea>
             </div>
         </div>
             <?php if(isset($error_msgs)): ?>
