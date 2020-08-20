@@ -25,6 +25,7 @@ if (isset($_POST['signin'])) {
 
     $menber = new UserController($_POST);
     $result = $menber->login();
+    echo $result;
 }
 
 

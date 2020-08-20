@@ -47,21 +47,57 @@ class UserController {
 
         $new_menber = new User();
         $new_menber->setUser($user);
-        $result = $new_menber->newMenber();
-        if($result === false){
+        $user = $new_menber->newMenber();
+        if($user === false){
             $params = sprintf("?name=%s&email=%s",$this->name, $this->email);
             header("Location: index.php". $params);
             exit;
         }
+        $_SESSION['user'] = $user;
         return "welcome";
     }
 
     public function login()
     {
-        
+        $validation = new UserValidation();
+        $validation->setName($this->name);
+        $check_name = $validation->checkName();
+        $validation->setEmail($this->email);
+        $check_email = $validation->checkEmail();
+
+        if(!$check_name || !$check_email){
+            $_SESSION['user_err'] = $validation->getErrMessage();
+            $params = sprintf("?m_name=%s&m_email=%s",$this->name, $this->email);
+            header("Location: index.php". $params);
+            exit;
+        }
+
+        $user['name'] = $validation->getName();
+        $user['email'] = $validation->getEmail();
+        $user['pass'] = $this->pass;
+
+        $login_user = new User();
+        $login_user->setUser($user);
+        $user = $login_user->login();
+        if(!$user){
+            $params = sprintf("?m_name=%s&m_email=%s",$this->name, $this->email);
+            header("Location: index.php". $params);
+            exit;
+        }
+        $check_pass = $validation->judgePass($this->pass, $user['password']);
+        if(!$check_pass){
+            $_SESSION['user_err'] = $validation->getErrMessage();
+            $params = sprintf("?m_name=%s&m_email=%s",$this->name, $this->email);
+            header("Location: index.php". $params);
+            exit;
+        }
+        $_SESSION['user'] = $user;
+        return "welcome";
     }
 
+    public function checkPass()
+    {
 
-
+    }
 
 }

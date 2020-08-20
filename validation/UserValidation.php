@@ -87,6 +87,14 @@ class UserValidation {
         return true;
     }
 
+    public function judgePass($pass, $db_pass)
+    {
+        if($pass !== $db_pass){
+            $this->err_msgs[] = "パスワードが違います!!";
+            return false;
+        }
+        return true;
+    }
 
     public function getErrMessage()
     {
