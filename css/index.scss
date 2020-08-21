@@ -1,6 +1,6 @@
-.menber_form {
-    display: flex;
-    flex-direction: column;
+.form_container {
+    display: none;
+    width: 500px;
     input {
         width: 30%;
     }
@@ -8,3 +8,4 @@
         width: 10%;
     }
 }
+

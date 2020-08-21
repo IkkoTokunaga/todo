@@ -40,80 +40,150 @@ $action = new TodoController;
 $todo_list = $action->index();
 ?>
 <!DOCTYPEhtml>
-    <htmllang="ja">
+<htmllang="ja">
 
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <link rel="stylesheet" href="../../css/index.css">
-            <title>TODOリスト</title>
-        </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../css/index.css">
+    <title>TODOリスト</title>
+</head>
 
-        <body>
-            <!------------------- ログイン画面 ---------------------------->
-            <?php if (isset($err_msgs)) : ?>
-                <ul>
-                    <?php foreach ($err_msgs as $err) : ?>
-                        <li><?= $err; ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
+<body>
+    <!------------------- ログイン画面 ---------------------------->
+    <?php if (isset($err_msgs)) : ?>
+        <ul>
+            <?php foreach ($err_msgs as $err) : ?>
+                <li><?= $err; ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 
-            <form action="" method="post">
-                <div class="menber_form">
+    <form action="" method="post">
+        <div class="menber_form">
 
-                    <h2>新規登録</h2>
+            <div class="accordion">
+                <p>新規登録</p>
+                <table class="form_container">
+                    <tr>
+                        <td>
+                            name
+                        </td>
+                        <td>
+                            <input type="text" name="name" id="name" placeholder="名前"
+                            value="<?php if(isset($_GET['name'])){echo $_GET['name'];} ?>">
+                        </td>
+                    </tr>
 
-                    <label for="name">name</label><input type="text" name="name" id="name" placeholder="名前"
-                    value="<?php if(isset($_GET['name'])){echo $_GET['name'];} ?>">
+                    <tr>
+                        <td>
+                            email
+                        </td>
+                        <td>
+                            <input type="email" name="email" id="email" placeholder="アドレス"
+                            value="<?php if(isset($_GET['email'])){echo $_GET['email'];} ?>">
+                        </td>
+                    </tr>
 
-                    <label for="email">email</label><input type="email" name="email" id="email" placeholder="アドレス"
-                    value="<?php if(isset($_GET['email'])){echo $_GET['email'];} ?>">
+                    <tr>
+                        <td>
+                            password
+                        </td>
+                        <td>
+                            <input type="password" name="pass" id="pass" placeholder="パスワード">
+                        </td>
+                    </tr>
 
-                    <label for="pass">password</label><input type="password" name="pass" id="pass" placeholder="パスワード">
+                    <tr>
+                        <td>
+                            password
+                        </td>
+                        <td>
+                            <input type="password" name="re_pass" id="re_pass" placeholder="パスワード確認用">
+                        </td>
+                    </tr>
 
-                    <label for="re_pass">password</label><input type="password" name="re_pass" id="re_pass" placeholder="パスワード確認用">
-
-                    <input type="submit" name="new_menber" id="new_menber" value="新規登録">
-
-
-                    <h2>ログイン</h2>
-
-                    <label for="m_name">name</label><input type="text" name="m_name" id="m_name" placeholder="名前">
-
-                    <label for="m_email">email</label><input type="m_email" name="m_email" id="m_email" placeholder="アドレス">
-
-                    <label for="m_pass">password</label><input type="password" name="m_pass" id="m_pass" placeholder="パスワード">
-
-                    <input type="submit" name="signin">
-
-                </div>
-            </form>
-
-            <label>ログアウト</label><input type="submit" name="logout">
-
-
-            <!----------------------- 新規作成画面 ------------------------>
-            <div>
-                <a href="./new.php">新規作成</a>
+                    <tr>
+                        <td>
+                            <input type="submit" name="new_menber" id="new_menber" value="新規登録">
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <ul>
-                <?php foreach ($todo_list as $todo) : ?>
-                    <li>
-                        <a href="./detail.php?todo_id=<?= h($todo['id']); ?>">
-                            <?= h($todo['title']); ?></a>
-                        <button class="delete_btn" data-id="<?= h($todo['id']); ?>">削除</button>
-                    </li> <?php endforeach; ?>
-            </ul>
-            <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        </body>
 
-        </html>
-        <script>
-            $(".delete_btn").on('click', function() {
-                const todo_id = $(this).data('id');
-                alert("delete");
-                window.location.href = "./index.php?action=delete&todo_id=" + todo_id;
-            });
-        </script>
+            <div class="accordion">
+                    <p>ログイン</p>
+                    <table class="form_container">
+                        <tr>
+                            <td>
+                                name
+                            </td>
+                            <td>
+                            <input type="text" name="m_name" id="m_name" placeholder="名前"
+                            value="<?php 
+                            if(isset($_GET['m_name'])){echo $_GET['m_name'];} ?>">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                email
+                            </td>
+                            <td>
+                                <input type="m_email" name="m_email" id="m_email" placeholder="アドレス"
+                                value="<?php 
+                                if(isset($_GET['m_email'])){echo $_GET['m_email'];} ?>">
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                password
+                            </td>
+                            <td>
+                                <input type="password" name="m_pass" id="m_pass" placeholder="パスワード">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                            <input type="submit" name="signin">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+        </div>
+    </form>
+
+    <label>ログアウト</label><input type="submit" name="logout">
+
+
+    <!----------------------- 新規作成画面 ------------------------>
+    <div>
+        <a href="./new.php">新規作成</a>
+    </div>
+    <ul>
+        <?php foreach ($todo_list as $todo) : ?>
+            <li>
+                <a href="./detail.php?todo_id=<?= h($todo['id']); ?>">
+                    <?= h($todo['title']); ?></a>
+                <button class="delete_btn" data-id="<?= h($todo['id']); ?>">削除</button>
+            </li> <?php endforeach; ?>
+    </ul>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</body>
+
+</html>
+<script>
+    $(".delete_btn").on('click', function() {
+        const todo_id = $(this).data('id');
+        alert("delete");
+        window.location.href = "./index.php?action=delete&todo_id=" + todo_id;
+    });
+
+    $(".accordion").on("click", function() {
+    $(this).children(".form_container").fadeToggle();
+    // $("p").css('color','red');
+    });
+</script>

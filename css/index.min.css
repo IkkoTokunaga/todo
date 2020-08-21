@@ -1,1 +1,1 @@
-.menber_form{display:flex;flex-direction:column}.menber_form input{width:30%}.menber_form input[type="submit"]{width:10%}
+.form_container{display:none;width:500px}.form_container input{width:30%}.form_container input[type="submit"]{width:10%}

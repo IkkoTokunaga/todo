@@ -1,12 +1,12 @@
-.menber_form {
-  display: flex;
-  flex-direction: column;
+.form_container {
+  display: none;
+  width: 500px;
 }
 
-.menber_form input {
+.form_container input {
   width: 30%;
 }
 
-.menber_form input[type="submit"] {
+.form_container input[type="submit"] {
   width: 10%;
 }
