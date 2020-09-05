@@ -42,7 +42,7 @@ class User
         }
     }
 
-    public function login()
+    public function login_user()
     {
         $db = new PDO(DSN, USERNAME, PASSWORD);
 

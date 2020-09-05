@@ -1,12 +1,11 @@
 .form_container {
-  display: none;
   width: 500px;
 }
 
 .form_container input {
-  width: 30%;
+  width: 80%;
 }
 
 .form_container input[type="submit"] {
-  width: 10%;
+  width: 50%;
 }

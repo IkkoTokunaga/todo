@@ -16,19 +16,20 @@ require_once '../../model/Todo.php';
 require_once '../../controller/UserController.php';
 require_once '../../controller/TodoController.php';
 
+$result = "";
+
 if (isset($_POST['new_menber'])) {
 
-    $new_menber = new UserController($_POST);
+    $new_menber = new UserController();
+    $new_menber->setNewMenber($_POST);
     $result = $new_menber->newMenber();
 }
 if (isset($_POST['signin'])) {
 
-    $menber = new UserController($_POST);
+    $menber = new UserController();
+    $menber->setMenber($_POST);
     $result = $menber->login();
-    echo $result;
 }
-
-
 
 if (isset($_GET['action']) && $_GET['action'] === 'delete') {
     $action = new TodoController();
@@ -61,6 +62,8 @@ $todo_list = $action->index();
     <?php endif; ?>
 
     <form action="" method="post">
+
+    <?php if($result !== "welcome"): ?>
         <div class="menber_form">
 
             <div class="accordion">
@@ -154,11 +157,14 @@ $todo_list = $action->index();
                     </table>
                 </div>
         </div>
+    <? endif; ?>    
     </form>
 
     <label>ログアウト</label><input type="submit" name="logout">
-
-
+    </br>
+    <?php if(isset($_SESSION['user'])): ?>
+    <?= "Welcome" . $_SESSION['user']['name'] . "さん"; ?>
+    <?php endif; ?>
     <!----------------------- 新規作成画面 ------------------------>
     <div>
         <a href="./new.php">新規作成</a>
@@ -182,8 +188,4 @@ $todo_list = $action->index();
         window.location.href = "./index.php?action=delete&todo_id=" + todo_id;
     });
 
-    $(".accordion").on("click", function() {
-    $(this).children(".form_container").fadeToggle();
-    // $("p").css('color','red');
-    });
 </script>

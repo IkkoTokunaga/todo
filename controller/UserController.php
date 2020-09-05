@@ -10,23 +10,25 @@ class UserController {
     private $re_pass;
 
 
-    public function __construct($post)
+    public function setNewMenber($post)
     {
-        if (!empty($post['name'])) {
-            $this->name = $post['name'];
-            $this->email = $post['email'];
-            $this->pass = $post['pass'];
-            $this->re_pass = $post['re_pass'];
-        }
-        if (!empty($post['m_name'])) {
-            $this->name = $post['m_name'];
-            $this->email = $post['m_email'];
-            $this->pass = $post['m_pass'];
-        }
+        $this->name = $post['name'];
+        $this->email = $post['email'];
+        $this->pass = $post['pass'];
+        $this->re_pass = $post['re_pass'];
+
+    }
+
+    public function setMenber($post)
+    {
+        $this->name = $post['m_name'];
+        $this->email = $post['m_email'];
+        $this->pass = $post['m_pass'];
     }
 
     public function newMenber()
     {
+        //validationを通す
         $validation = new UserValidation();
         $validation->setName($this->name);
         $check_name = $validation->checkName();
@@ -41,18 +43,21 @@ class UserController {
             exit;
         }
 
+        //validationを通ったものを使う
         $user['name'] = $validation->getName();
         $user['email'] = $validation->getEmail();
         $user['pass'] =  $validation->getPass();
 
+        //DBへ登録
         $new_menber = new User();
         $new_menber->setUser($user);
-        $user = $new_menber->newMenber();
-        if($user === false){
+        $result = $new_menber->newMenber();
+        if(!$result){
             $params = sprintf("?name=%s&email=%s",$this->name, $this->email);
             header("Location: index.php". $params);
             exit;
         }
+        $user = $new_menber->login_user();
         $_SESSION['user'] = $user;
         return "welcome";
     }
@@ -78,7 +83,7 @@ class UserController {
 
         $login_user = new User();
         $login_user->setUser($user);
-        $user = $login_user->login();
+        $user = $login_user->login_user();
         if(!$user){
             $params = sprintf("?m_name=%s&m_email=%s",$this->name, $this->email);
             header("Location: index.php". $params);
@@ -93,11 +98,6 @@ class UserController {
         }
         $_SESSION['user'] = $user;
         return "welcome";
-    }
-
-    public function checkPass()
-    {
-
     }
 
 }
