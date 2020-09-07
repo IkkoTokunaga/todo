@@ -38,7 +38,7 @@ class UserController {
         if(!$check_name || !$check_email || !$check_pass){
             $_SESSION['user_err'] = $validation->getErrMessage();
             $params = sprintf("?name=%s&email=%s",$this->name, $this->email);
-            header("Location: index.php". $params);
+            header("Location: ./new.php". $params);
             exit;
         }
 
@@ -53,12 +53,13 @@ class UserController {
         $result = $new_member->newMember();
         if(!$result){
             $params = sprintf("?name=%s&email=%s",$this->name, $this->email);
-            header("Location: index.php". $params);
+            header("Location: ./new.php". $params);
             exit;
         }
         $user = $new_member->login_user();
         $_SESSION['user'] = $user;
-        return "welcome";
+        header("Location: ../todo/index.php");
+        exit;
     }
 
     public function login()
@@ -72,7 +73,7 @@ class UserController {
         if(!$check_name || !$check_email){
             $_SESSION['user_err'] = $validation->getErrMessage();
             $params = sprintf("?m_name=%s&m_email=%s",$this->name, $this->email);
-            header("Location: index.php". $params);
+            header("Location: ./login.php". $params);
             exit;
         }
 
@@ -85,18 +86,17 @@ class UserController {
         $user = $login_user->login_user();
         if(!$user){
             $params = sprintf("?m_name=%s&m_email=%s",$this->name, $this->email);
-            header("Location: index.php". $params);
+            header("Location: ./login.php". $params);
             exit;
         }
         $check_pass = $validation->judgePass($this->pass, $user['password']);
         if(!$check_pass){
             $_SESSION['user_err'] = $validation->getErrMessage();
             $params = sprintf("?m_name=%s&m_email=%s",$this->name, $this->email);
-            header("Location: index.php". $params);
+            header("Location: ./login.php". $params);
             exit;
         }
         $_SESSION['user'] = $user;
-        return "welcome";
     }
 
 }
