@@ -136,7 +136,10 @@ class Todo
         $db = new PDO(DSN, USERNAME, PASSWORD);
         $query = sprintf("SELECT * FROM todos WHERE id=%s", $todo_id);
         $stmt = $db->query($query);
-        if(!$stmt){
+        var_dump($stmt);
+        exit;
+        //int型だとfalseにならず
+        if(!$stmt || empty($stmt)){
             return false;
         }
         return true;

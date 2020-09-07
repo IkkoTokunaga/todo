@@ -11,6 +11,8 @@ if (isset($_SESSION["user_err"])) {
 
 require_once '../../config/config.php';
 require_once '../../config/database.php';
+require_once '../../validation/UserValidation.php';
+require_once '../../validation/TodoValidation.php';
 require_once '../../model/User.php';
 require_once '../../model/Todo.php';
 require_once '../../controller/UserController.php';
@@ -18,17 +20,24 @@ require_once '../../controller/TodoController.php';
 
 $result = "";
 
-if (isset($_POST['new_menber'])) {
+if (isset($_POST['new_member'])) {
 
-    $new_menber = new UserController();
-    $new_menber->setNewMenber($_POST);
-    $result = $new_menber->newMenber();
+    $new_member = new UserController();
+    $new_member->setNewMember($_POST);
+    $result = $new_member->newMember();
 }
 if (isset($_POST['signin'])) {
 
-    $menber = new UserController();
-    $menber->setMenber($_POST);
-    $result = $menber->login();
+    $member = new UserController();
+    $member->setMember($_POST);
+    $result = $member->login();
+}
+if (isset($_POST['logout'])) {
+
+    $result = "";
+    unset($_SESSION['user']);
+    header("Location: index.php");
+    exit;
 }
 
 if (isset($_GET['action']) && $_GET['action'] === 'delete') {
@@ -64,7 +73,7 @@ $todo_list = $action->index();
     <form action="" method="post">
 
     <?php if($result !== "welcome"): ?>
-        <div class="menber_form">
+        <div class="member_form">
 
             <div class="accordion">
                 <p>新規登録</p>
@@ -109,7 +118,7 @@ $todo_list = $action->index();
 
                     <tr>
                         <td>
-                            <input type="submit" name="new_menber" id="new_menber" value="新規登録">
+                            <input type="submit" name="new_member" id="new_member" value="新規登録">
                         </td>
                     </tr>
                 </table>
@@ -157,13 +166,14 @@ $todo_list = $action->index();
                     </table>
                 </div>
         </div>
-    <? endif; ?>    
-    </form>
+    <? endif; ?>
 
-    <label>ログアウト</label><input type="submit" name="logout">
+    <?php if($result === "welcome"): ?>
+    <label for="logout">ログアウト</label><input type="submit" name="logout" id="logout">
     </br>
+    </form>
     <?php if(isset($_SESSION['user'])): ?>
-    <?= "Welcome" . $_SESSION['user']['name'] . "さん"; ?>
+    <?= "Welcome" . h($_SESSION['user']['name']) . "さん"; ?>
     <?php endif; ?>
     <!----------------------- 新規作成画面 ------------------------>
     <div>
@@ -177,6 +187,8 @@ $todo_list = $action->index();
                 <button class="delete_btn" data-id="<?= h($todo['id']); ?>">削除</button>
             </li> <?php endforeach; ?>
     </ul>
+    <?php endif; ?>
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </body>
 

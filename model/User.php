@@ -14,10 +14,10 @@ class User
         $this->pass = $user['pass'];
     }
 
-    public function newMenber()
+    public function newMember()
     {
         $query = sprintf(
-            "INSERT INTO `menbers`
+            "INSERT INTO `members`
                 (`name`,`email`,`password`,`created_at`)
             VALUES ('%s', '%s', '%s', NOW());",
             $this->name,
@@ -46,7 +46,7 @@ class User
     {
         $db = new PDO(DSN, USERNAME, PASSWORD);
 
-        $query = sprintf("SELECT * FROM common.menbers WHERE name='%s' AND email='%s'", $this->name, $this->email);
+        $query = sprintf("SELECT * FROM common.members WHERE name='%s' AND email='%s'", $this->name, $this->email);
 
         $stmt = $db->query($query);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

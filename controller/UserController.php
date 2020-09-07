@@ -1,6 +1,5 @@
 <?php
 
-require_once '../../validation/UserValidation.php';
 
 class UserController {
 
@@ -10,7 +9,7 @@ class UserController {
     private $re_pass;
 
 
-    public function setNewMenber($post)
+    public function setNewMember($post)
     {
         $this->name = $post['name'];
         $this->email = $post['email'];
@@ -19,14 +18,14 @@ class UserController {
 
     }
 
-    public function setMenber($post)
+    public function setMember($post)
     {
         $this->name = $post['m_name'];
         $this->email = $post['m_email'];
         $this->pass = $post['m_pass'];
     }
 
-    public function newMenber()
+    public function newMember()
     {
         //validationを通す
         $validation = new UserValidation();
@@ -49,15 +48,15 @@ class UserController {
         $user['pass'] =  $validation->getPass();
 
         //DBへ登録
-        $new_menber = new User();
-        $new_menber->setUser($user);
-        $result = $new_menber->newMenber();
+        $new_member = new User();
+        $new_member->setUser($user);
+        $result = $new_member->newMember();
         if(!$result){
             $params = sprintf("?name=%s&email=%s",$this->name, $this->email);
             header("Location: index.php". $params);
             exit;
         }
-        $user = $new_menber->login_user();
+        $user = $new_member->login_user();
         $_SESSION['user'] = $user;
         return "welcome";
     }

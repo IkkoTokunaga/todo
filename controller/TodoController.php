@@ -1,5 +1,4 @@
 <?php
-require_once '../../validation/TodoValidation.php';
 
 class TodoController
 {
@@ -47,14 +46,26 @@ class TodoController
     public function detail()
     {
         $todo_id = $_GET['todo_id'];
-        $todo = Todo::findById($todo_id);
+        $is_exist = Todo::isExistById($todo_id);
+        if(!$is_exist){
+            header("Location: ../404.php");
+            exit;
+        }
 
+        $todo = Todo::findById($todo_id);
         return $todo;
     }
 
     public function edit()
     {
         $todo_id = $_GET['todo_id'];
+        $is_exist = Todo::isExistById($todo_id);
+        if(!$is_exist){
+            header("Location: ../404.php");
+            exit;
+        }
+
+
         $todo = Todo::findById($todo_id);
         if($_SERVER['REQUEST_METHOD'] !== 'POST'){
             return $todo;
