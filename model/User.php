@@ -7,6 +7,16 @@ class User
     private $email;
     private $pass;
 
+    public function AllUserName(){
+        $query = "select name from members";
+        
+        $db = new PDO(DSN, USERNAME, PASSWORD);
+        $stmt = $db->query($query);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+
+    }
+
     public function setUser($user)
     {
         $this->name = $user['name'];

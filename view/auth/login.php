@@ -15,6 +15,11 @@ if (isset($_POST['signin'])) {
     $member->login();
 
 }
+if (isset($_POST['new_member'])) {
+
+    header("Location: ../user/new.php");
+
+}
 
 if(isset($_SESSION['user'])){
     header("Location: ../todo/index.php");
@@ -67,6 +72,7 @@ if(isset($_SESSION['user'])){
             <tr>
                 <td>
                     <input type="submit" name="signin" value="ログイン">
+                    <input type="submit" name="new_member" value="初めての方">
                 </td>
             </tr>
         </table>

@@ -9,7 +9,6 @@ require_once '../../controller/UserController.php';
 
 if (isset($_SESSION["user_err"])) {
     $err_msgs = $_SESSION["user_err"];
-    unset($_SESSION["user_err"]);
 }
 
 
@@ -84,6 +83,14 @@ if (isset($_POST['new_member'])) {
                     </tr>
                 </table>
             </div>
+        <?php if(isset($_SESSION['user_err'])): ?>    
+        <?php foreach($err_msgs as $err): ?>
+            <p><?= $err; ?></p>
+        <?php endforeach; ?>
+        <?php unset($_SESSION["user_err"]); ?>
+        <?php endif; ?>
+
+
 </body>
 
 </html>
