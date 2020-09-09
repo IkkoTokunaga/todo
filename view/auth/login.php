@@ -72,7 +72,10 @@ if(isset($_SESSION['user'])){
             <tr>
                 <td>
                     <input type="submit" name="signin" value="ログイン">
-                    <input type="submit" name="new_member" value="初めての方">
+                    <!-- <input type="submit" name="new_member" value="初めての方"> -->
+                    <button class="new_btn">
+                        <a href="../user/new.php">初めての方</a>
+                    </button>
                 </td>
             </tr>
         </table>

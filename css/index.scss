@@ -1,11 +1,19 @@
 .form_container {
-    // display: none;
     width: 500px;
     input {
         width: 80%;
     }
-    input[type="submit"] {
+    input[type="submit"]{
         width: 50%;
+    }
+    .new_btn{
+        width: 50%;
+        margin-top: 10px;
+        display: inline-block;
+    }
+    a{
+        text-decoration: none;
+        color: #000;
     }
 }
 
