@@ -5,12 +5,12 @@ require_once '../../config/config.php';
 require_once '../../config/database.php';
 require_once '../../validation/UserValidation.php';
 require_once '../../model/User.php';
-require_once '../../controller/UserController.php';
+require_once '../../controller/LoginController.php';
 
 
 if (isset($_POST['signin'])) {
 
-    $member = new UserController();
+    $member = new LoginController();
     // $member->setMember($_POST);
     $member->login();
 
