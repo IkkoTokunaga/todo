@@ -11,10 +11,11 @@ require_once '../../controller/UserController.php';
 if (isset($_POST['signin'])) {
 
     $member = new UserController();
-    $member->setMember($_POST);
+    // $member->setMember($_POST);
     $member->login();
 
 }
+
 // if (isset($_POST['new_member'])) {
 
 //     header("Location: ../user/new.php");
@@ -47,7 +48,7 @@ if(isset($_SESSION['user'])){
                     name
                 </td>
                 <td>
-                    <input type="text" name="m_name" id="m_name" placeholder="名前" value="<?php if (isset($_GET['m_name'])) {echo $_GET['m_name'];} ?>">
+                    <input type="text" name="name" id="name" placeholder="名前" value="<?php if (isset($_GET['name'])) {echo $_GET['name'];} ?>">
                 </td>
             </tr>
     
@@ -56,7 +57,7 @@ if(isset($_SESSION['user'])){
                     email
                 </td>
                 <td>
-                    <input type="m_email" name="m_email" id="m_email" placeholder="アドレス" value="<?php if (isset($_GET['m_email'])) {echo $_GET['m_email']; } ?>">
+                    <input type="email" name="email" id="email" placeholder="アドレス" value="<?php if (isset($_GET['email'])) {echo $_GET['email']; } ?>">
                 </td>
             </tr>
     
@@ -65,7 +66,7 @@ if(isset($_SESSION['user'])){
                     password
                 </td>
                 <td>
-                    <input type="password" name="m_pass" id="m_pass" placeholder="パスワード">
+                    <input type="password" name="pass" id="pass" placeholder="パスワード">
                 </td>
             </tr>
     

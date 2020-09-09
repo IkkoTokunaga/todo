@@ -2,86 +2,65 @@
 
 class UserValidation {
 
-    private $name;
-    private $email;
-    private $pass;
+    // private $name;
+    // private $email;
+    // private $pass;
+    private $date;
     private $err_msgs = [];
 
-    public function setName($name)
+    public function setDate($date)
     {
-        $this->name = $name;
+        $this->date = $date;
     }
-    public function getName()
+    public function getDate()
     {
-        return $this->name;
+        return $this->date;
     }
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-    public function getEmail()
-    {
-        return $this->email;
-    }
-    public function setPass($pass)
-    {
-        $this->pass = $pass;
-    }
-    public function getPass()
-    {
-        return $this->pass;
-    }
+    // public function setEmail($email)
+    // {
+    //     $this->email = $email;
+    // }
+    // public function getEmail()
+    // {
+    //     return $this->email;
+    // }
+    // public function setPass($pass)
+    // {
+    //     $this->pass = $pass;
+    // }
+    // public function getPass()
+    // {
+    //     return $this->pass;
+    // }
     
-    public function checkName()
+    public function checkDate()
     {
-        $cnt = 0;
-        if(empty($this->name)){
+        if(empty($this->date['name'])){
             $this->err_msgs[] = "名前を入力してください";
-            $cnt++;
         }
-        if(mb_strlen($this->name) > 20){
+        if(mb_strlen($this->date['name']) > 20){
             $this->err_msgs[] = "名前は20文字以内で入力してください";
-            $cnt++;
         }
-        if($cnt !== 0){
-            return false;
-        }
-        return true;
-    }
 
-    public function checkEmail()
-    {
-        $cnt = 0;
-        if(empty($this->email)){
+        if(empty($this->date['email'])){
             $this->err_msgs[] = "アドレスを入力してください";
-            $cnt++;
         }
-        if(mb_strlen($this->email) > 100){
+        if(mb_strlen($this->date['email']) > 100){
             $this->err_msgs[] = "アドレスは100字以内で記入してください";
-            $cnt++;
         }
-        if($cnt !== 0){
-            return false;
-        }
-        return true;
-    }
 
-    public function checkPass($re_pass)
-    {
-        $cnt = 0;
-        if(empty($this->pass)){
+        if(empty($this->date['pass'])){
             $this->err_msgs[] = "パスワードを入力してください";
-            $cnt++;
         }
-        if(mb_strlen($this->pass) < 4){
+        elseif(mb_strlen($this->date['pass']) < 4){
             $this->err_msgs[] = "パスワードは４文字以上で入力してください";
-            $cnt++;
         }
-        if($this->pass !== $re_pass){
-            $this->err_msgs[] = "同じパスワードを入力してください";
-            $cnt++;
+        if(isset($_POST['new_member'])){
+            if($this->date['pass'] !== $this->date['re_pass']){
+                $this->err_msgs[] = "同じパスワードを入力してください";
+            }
         }
-        if($cnt !== 0){
+        if(!empty($this->err_msgs)){
             return false;
         }
         return true;
