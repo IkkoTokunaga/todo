@@ -10,9 +10,9 @@ require_once '../../controller/LoginController.php';
 
 if (isset($_POST['signin'])) {
 
-    $member = new LoginController();
+    $controller = new LoginController();
     // $member->setMember($_POST);
-    $member->login();
+    $controller->login();
 
 }
 
