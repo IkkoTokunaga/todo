@@ -15,11 +15,11 @@ if (isset($_POST['signin'])) {
     $member->login();
 
 }
-if (isset($_POST['new_member'])) {
+// if (isset($_POST['new_member'])) {
 
-    header("Location: ../user/new.php");
+//     header("Location: ../user/new.php");
 
-}
+// }
 
 if(isset($_SESSION['user'])){
     header("Location: ../todo/index.php");
