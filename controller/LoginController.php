@@ -8,8 +8,6 @@ class LoginController {
         $validation = new UserValidation();
         $validation->setDate($user_date);
         $check_date = $validation->checkDate();
-        // $validation->setEmail($this->email);
-        // $check_email = $validation->checkEmail();
 
         if(!$check_date){
             $_SESSION['user_err'] = $validation->getErrMessage();

@@ -16,7 +16,6 @@ if (isset($_SESSION["user_err"])) {
 if (isset($_POST['new_member'])) {
 
     $controller = new UserController();
-    // $controller->setNewMember($_POST);
     $controller->save();
 
 }

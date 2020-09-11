@@ -2,9 +2,6 @@
 
 class UserValidation {
 
-    // private $name;
-    // private $email;
-    // private $pass;
     private $date;
     private $err_msgs = [];
 
@@ -16,22 +13,6 @@ class UserValidation {
     {
         return $this->date;
     }
-    // public function setEmail($email)
-    // {
-    //     $this->email = $email;
-    // }
-    // public function getEmail()
-    // {
-    //     return $this->email;
-    // }
-    // public function setPass($pass)
-    // {
-    //     $this->pass = $pass;
-    // }
-    // public function getPass()
-    // {
-    //     return $this->pass;
-    // }
     
     public function checkDate()
     {

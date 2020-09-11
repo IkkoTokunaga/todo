@@ -11,16 +11,9 @@ require_once '../../controller/LoginController.php';
 if (isset($_POST['signin'])) {
 
     $controller = new LoginController();
-    // $member->setMember($_POST);
     $controller->login();
 
 }
-
-// if (isset($_POST['new_member'])) {
-
-//     header("Location: ../user/new.php");
-
-// }
 
 if(isset($_SESSION['user'])){
     header("Location: ../todo/index.php");
@@ -73,7 +66,6 @@ if(isset($_SESSION['user'])){
             <tr>
                 <td>
                     <input type="submit" name="signin" value="ログイン">
-                    <!-- <input type="submit" name="new_member" value="初めての方"> -->
                     <button class="new_btn">
                         <a href="../user/new.php">初めての方</a>
                     </button>
