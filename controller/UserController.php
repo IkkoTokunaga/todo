@@ -25,7 +25,7 @@ class UserController {
             //DBへ登録
             $new_user = new User();
             $new_user->setUser($user);
-            $result = $new_user->newUser();
+            $result = $new_user->save();
             if(!$result){
                 $params = sprintf("?name=%s&email=%s",$this->name, $this->email);
                 header("Location: ./new.php". $params);

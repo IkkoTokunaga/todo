@@ -24,7 +24,7 @@ class User
         $this->pass = $user['pass'];
     }
 
-    public function newUser()
+    public function save()
     {
         $query = sprintf(
             "INSERT INTO `members`
