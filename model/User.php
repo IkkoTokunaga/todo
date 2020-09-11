@@ -3,9 +3,7 @@
 class User
 {
 
-    private $name;
-    private $email;
-    private $pass;
+    private $user_data;
 
     public function findById($id){
         $query = sprintf("select * from members where id=%s;", $id);
@@ -26,15 +24,14 @@ class User
 
     }
 
-    public function setUser($user)
-    {
-        $this->name = $user['name'];
-        $this->email = $user['email'];
-        $this->pass = $user['pass'];
+    public function setData($user){
+
+        $this->user_data = $user;
+
     }
 
-    public function save()
-    {
+    public function save(){
+    
         $query = sprintf(
             "INSERT INTO `members`
                 (`name`,`email`,`password`,`created_at`)
@@ -65,11 +62,11 @@ class User
         }
     }
 
-    public function getUserForLogin()
-    {
+    public function getUserForLogin(){
+    
         $db = new PDO(DSN, USERNAME, PASSWORD);
 
-        $query = sprintf("SELECT * FROM common.members WHERE name='%s' AND email='%s';", $this->name, $this->email);
+        $query = sprintf("SELECT * FROM common.members WHERE name='%s' AND email='%s';", $this->user_data['name'], $this->user_data['email']);
 
         $stmt = $db->query($query);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
