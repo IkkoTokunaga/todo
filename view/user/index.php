@@ -10,7 +10,7 @@ require_once '../../controller/UserController.php';
 require_once '../../controller/TodoController.php';
 
 $action = new User();
-$users = $action->AllUserName();
+$users = $action->getAllUser();
 ?>
 
 <!DOCTYPE html>

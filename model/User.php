@@ -16,7 +16,7 @@ class User
 
     }
 
-    public function AllUserName(){
+    public function getAllUser(){
         $query = "select name from members";
         
         $db = new PDO(DSN, USERNAME, PASSWORD);
