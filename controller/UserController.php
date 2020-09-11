@@ -25,13 +25,13 @@ class UserController {
             //DBへ登録
             $new_user = new User();
             $new_user->setUser($user);
-            $result = $new_user->save();
-            if(!$result){
+            $getId = $new_user->save();
+            if(!$getId){
                 $params = sprintf("?name=%s&email=%s",$this->name, $this->email);
                 header("Location: ./new.php". $params);
                 exit;
             }
-            $user = $new_user->getUserForLogin();
+            $user = $new_user->findById($getId);
             $_SESSION['user'] = $user;
             header("Location: ../todo/index.php");
             exit;

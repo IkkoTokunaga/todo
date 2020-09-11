@@ -20,7 +20,7 @@ class LoginController {
 
         $login_user = new User();
         $login_user->setUser($user);
-        $getUser = $login_user->login_user();
+        $getUser = $login_user->getUserForLogin();
         if(!$getUser){
             $params = sprintf("?name=%s&email=%s",$user['name'], $user['email']);
             header("Location: ./login.php". $params);

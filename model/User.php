@@ -7,13 +7,22 @@ class User
     private $email;
     private $pass;
 
+    public function findById($id){
+        $query = sprintf("select * from members where id=%s;", $id);
+        $db = new PDO(DSN, USERNAME, PASSWORD);
+        $stmt = $db->query($query);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
+
+    }
+
     public function AllUserName(){
         $query = "select name from members";
         
         $db = new PDO(DSN, USERNAME, PASSWORD);
         $stmt = $db->query($query);
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        $allUser = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $allUser;
 
     }
 
@@ -41,10 +50,14 @@ class User
             $dbh->beginTransaction();
 
             $stmt = $dbh->prepare($query);
-            $result = $stmt->execute();
+            $stmt->execute();
+
+            $id = $dbh->lastinsertId('id');
 
             $dbh->commit();
-            return $result;
+
+            return $id;
+
         } catch (PDOException $e) {
 
             $dbh->rollBack();
@@ -56,10 +69,10 @@ class User
     {
         $db = new PDO(DSN, USERNAME, PASSWORD);
 
-        $query = sprintf("SELECT * FROM common.members WHERE name='%s' AND email='%s'", $this->name, $this->email);
+        $query = sprintf("SELECT * FROM common.members WHERE name='%s' AND email='%s';", $this->name, $this->email);
 
         $stmt = $db->query($query);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
     }
 }
