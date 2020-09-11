@@ -31,7 +31,7 @@ class UserController {
                 header("Location: ./new.php". $params);
                 exit;
             }
-            $user = $new_user->login_user();
+            $user = $new_user->getUserForLogin();
             $_SESSION['user'] = $user;
             header("Location: ../todo/index.php");
             exit;
