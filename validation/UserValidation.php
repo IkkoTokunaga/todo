@@ -36,7 +36,7 @@ class UserValidation {
         elseif(mb_strlen($this->date['pass']) < 4){
             $this->err_msgs[] = "パスワードは４文字以上で入力してください";
         }
-        if(isset($_POST['new_member'])){
+        if(isset($_POST['new_user'])){
             if($this->date['pass'] !== $this->date['re_pass']){
                 $this->err_msgs[] = "同じパスワードを入力してください";
             }

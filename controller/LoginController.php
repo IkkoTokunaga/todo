@@ -11,7 +11,7 @@ class LoginController {
 
         if(!$check_date){
             $_SESSION['user_err'] = $validation->getErrMessage();
-            $params = sprintf("?m_name=%s&m_email=%s",$user_date['name'], $user_date['pass']);
+            $params = sprintf("?name=%s&email=%s",$user_date['name'], $user_date['email']);
             header("Location: ./login.php". $params);
             exit;
         }
@@ -22,14 +22,14 @@ class LoginController {
         $login_user->setUser($user);
         $getUser = $login_user->login_user();
         if(!$getUser){
-            $params = sprintf("?m_name=%s&m_email=%s",$user['name'], $user['pass']);
+            $params = sprintf("?name=%s&email=%s",$user['name'], $user['email']);
             header("Location: ./login.php". $params);
             exit;
         }
         $check_pass = $validation->judgePass($user['pass'], $getUser['password']);
         if(!$check_pass){
             $_SESSION['user_err'] = $validation->getErrMessage();
-            $params = sprintf("?m_name=%s&m_email=%s",$user['name'], $user['pass']);
+            $params = sprintf("?name=%s&email=%s",$user['name'], $user['email']);
             header("Location: ./login.php". $params);
             exit;
         }

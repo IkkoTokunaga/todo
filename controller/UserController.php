@@ -23,15 +23,15 @@ class UserController {
             $user = $validation->getDate();
 
             //DBへ登録
-            $new_member = new User();
-            $new_member->setUser($user);
-            $result = $new_member->newMember();
+            $new_user = new User();
+            $new_user->setUser($user);
+            $result = $new_user->newUser();
             if(!$result){
                 $params = sprintf("?name=%s&email=%s",$this->name, $this->email);
                 header("Location: ./new.php". $params);
                 exit;
             }
-            $user = $new_member->login_user();
+            $user = $new_user->login_user();
             $_SESSION['user'] = $user;
             header("Location: ../todo/index.php");
             exit;

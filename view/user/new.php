@@ -13,7 +13,7 @@ if (isset($_SESSION["user_err"])) {
 
 
 
-if (isset($_POST['new_member'])) {
+if (isset($_POST['new_user'])) {
 
     $controller = new UserController();
     $controller->save();
@@ -34,7 +34,7 @@ if (isset($_POST['new_member'])) {
 <body>
     <form action="" method="post">
 
-        <div class="member_form">
+        <div class="user_form">
 
             <div class="accordion">
                 <p>新規登録</p>
@@ -77,7 +77,7 @@ if (isset($_POST['new_member'])) {
 
                     <tr>
                         <td>
-                            <input type="submit" name="new_member" id="new_member" value="新規登録">
+                            <input type="submit" name="new_user" id="new_user" value="新規登録">
                         </td>
                     </tr>
                 </table>
