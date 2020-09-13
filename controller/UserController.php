@@ -9,7 +9,7 @@ class UserController {
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
             $user_date = $_POST;
-            $validation = new LoginValidation();
+            $validation = new UserValidation();
             $validation->setDate($user_date);
             $check_date = $validation->checkDate();
             if(!$check_date){
