@@ -36,23 +36,24 @@ class LoginValidation {
         elseif(mb_strlen($this->data['pass']) < 4){
             $this->err_msgs[] = "パスワードは４文字以上で入力してください";
         }
+        else{
+            $action = new User();
+            $action->setdata($this->data);
+            $db_pass = $action->getLoginPass();
+            
+            if($this->data['pass'] !== $db_pass) {
+                $this->err_msgs[] = "パスワードが違います!!";
+            }
+        }
+
         if(!empty($this->err_msgs)){
             return false;
         }
         return true;
     }
 
-    public function judgePass($pass, $db_pass)
-    {
-        if($pass !== $db_pass){
-            $this->err_msgs[] = "パスワードが違います!!";
-            return false;
-        }
-        return true;
-    }
+    public function getErrMessage(){
 
-    public function getErrMessage()
-    {
         return $this->err_msgs;
     }
 }

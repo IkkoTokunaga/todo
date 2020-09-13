@@ -26,13 +26,6 @@ class LoginController {
             header("Location: ./login.php". $params);
             exit;
         }
-        $check_pass = $validation->judgePass($data['pass'], $user['password']);
-        if(!$check_pass){
-            $_SESSION['user_err'] = $validation->getErrMessage();
-            $params = sprintf("?name=%s&email=%s",$data['name'], $data['email']);
-            header("Location: ./login.php". $params);
-            exit;
-        }
         $_SESSION['user'] = $user;
     }
 

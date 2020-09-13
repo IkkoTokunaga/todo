@@ -2,8 +2,14 @@
 
 class User
 {
-
+    
     private $user_data;
+    
+    public function setData($user){
+    
+        $this->user_data = $user;
+    
+    }
 
     public function findById($id){
         $query = sprintf("select * from members where id=%s;", $id);
@@ -21,12 +27,6 @@ class User
         $stmt = $db->query($query);
         $allUser = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $allUser;
-
-    }
-
-    public function setData($user){
-
-        $this->user_data = $user;
 
     }
 
@@ -60,6 +60,17 @@ class User
             $dbh->rollBack();
             echo "DBエラー".$e->getMessage();
         }
+    }
+
+    public function getLoginPass(){
+        $db = new PDO(DSN, USERNAME, PASSWORD);
+
+        $query = sprintf("SELECT password FROM common.members WHERE name='%s' AND email='%s';", $this->user_data['name'], $this->user_data['email']);
+
+        $stmt = $db->query($query);
+        $pass = $stmt->fetchColumn();
+        return $pass;
+
     }
 
     public function getUserForLogin(){
