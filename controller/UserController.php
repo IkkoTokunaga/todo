@@ -7,7 +7,7 @@ class UserController {
     {
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            ////postの値を変数に格納しておく
+
             $user_date = $_POST;
             $validation = new UserValidation();
             $validation->setDate($user_date);
@@ -19,19 +19,17 @@ class UserController {
                 exit;
             }
 
-            //validationを通ったものを使う
-            $user = $validation->getDate();
+            $data = $validation->getDate();
 
-            //DBへ登録
             $new_user = new User();
-            $new_user->setUser($user);
-            $getId = $new_user->save();
-            if(!$getId){
-                $params = sprintf("?name=%s&email=%s",$this->name, $this->email);
+            $new_user->setData($data);
+            $id = $new_user->save();
+            if(!$id){
+                $params = sprintf("?name=%s&email=%s",$data['name'], $data['email']);
                 header("Location: ./new.php". $params);
                 exit;
             }
-            $user = $new_user->findById($getId);
+            $user = $new_user->findById($id);
             $_SESSION['user'] = $user;
             header("Location: ../todo/index.php");
             exit;
