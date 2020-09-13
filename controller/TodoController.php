@@ -25,7 +25,6 @@ class TodoController
             header("Location: ./new.php" . $params);
             exit;
         }
-//ちゃんとvalidationを通過した正常値という意味も含めて
         $validate_data = $validation->getData();
         $title = $validate_data['title'];
         $detail = $validate_data['detail'];

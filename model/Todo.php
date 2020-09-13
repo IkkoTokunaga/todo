@@ -40,7 +40,6 @@ class Todo
         $this->status = $status;
     }
 
-    //dbからデータを取り出して連想配列にして返すよ。もし取り出しに失敗したら空の配列を返すよ
     public static function findByQuery($query)
     {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
@@ -52,7 +51,6 @@ class Todo
         }
         return $result;
     }
-    //呼び出せばdbから全件抽出して値を返すよ、失敗したらからの配列を返すよ
     public static function findAll()
     {
         $dbh = new PDO(DSN, USERNAME, PASSWORD);
