@@ -4,19 +4,19 @@ class LoginController {
     
     public function login()
     {
-        $user_date = $_POST;
+        $user_data = $_POST;
         $validation = new LoginValidation();
-        $validation->setDate($user_date);
-        $check_date = $validation->checkDate();
+        $validation->setData($user_data);
+        $check_data = $validation->checkData();
 
-        if(!$check_date){
+        if(!$check_data){
             $_SESSION['user_err'] = $validation->getErrMessage();
-            $params = sprintf("?name=%s&email=%s",$user_date['name'], $user_date['email']);
+            $params = sprintf("?name=%s&email=%s",$user_data['name'], $user_data['email']);
             header("Location: ./login.php". $params);
             exit;
         }
 
-        $data = $validation->getDate();
+        $data = $validation->getData();
 
         $login_user = new User();
         $login_user->setData($data);

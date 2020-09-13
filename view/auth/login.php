@@ -3,7 +3,7 @@
 session_start();
 require_once '../../config/config.php';
 require_once '../../config/database.php';
-require_once '../../validation/UserValidation.php';
+require_once '../../validation/LoginValidation.php';
 require_once '../../model/User.php';
 require_once '../../controller/LoginController.php';
 
