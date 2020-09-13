@@ -16,24 +16,24 @@ class LoginController {
             exit;
         }
 
-        $user = $validation->getDate();
+        $data = $validation->getDate();
 
         $login_user = new User();
-        $login_user->setUser($user);
-        $getUser = $login_user->getUserForLogin();
-        if(!$getUser){
-            $params = sprintf("?name=%s&email=%s",$user['name'], $user['email']);
+        $login_user->setData($data);
+        $user = $login_user->getUserForLogin();
+        if(!$user){
+            $params = sprintf("?name=%s&email=%s",$data['name'], $data['email']);
             header("Location: ./login.php". $params);
             exit;
         }
-        $check_pass = $validation->judgePass($user['pass'], $getUser['password']);
+        $check_pass = $validation->judgePass($data['pass'], $user['password']);
         if(!$check_pass){
             $_SESSION['user_err'] = $validation->getErrMessage();
-            $params = sprintf("?name=%s&email=%s",$user['name'], $user['email']);
+            $params = sprintf("?name=%s&email=%s",$data['name'], $data['email']);
             header("Location: ./login.php". $params);
             exit;
         }
-        $_SESSION['user'] = $getUser;
+        $_SESSION['user'] = $user;
     }
 
 
