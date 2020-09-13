@@ -36,9 +36,9 @@ class User
             "INSERT INTO `members`
                 (`name`,`email`,`password`,`created_at`)
             VALUES ('%s', '%s', '%s', NOW());",
-            $this->name,
-            $this->email,
-            $this->pass
+            $this->user_data['name'],
+            $this->user_data['email'],
+            $this->user_data['pass']
         );
 
         try {
