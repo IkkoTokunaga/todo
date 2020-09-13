@@ -1,6 +1,6 @@
 <?php
 
-class UserValidation {
+class LoginValidation {
 
     private $date;
     private $err_msgs = [];

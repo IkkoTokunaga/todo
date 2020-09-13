@@ -5,7 +5,7 @@ class LoginController {
     public function login()
     {
         $user_date = $_POST;
-        $validation = new UserValidation();
+        $validation = new LoginValidation();
         $validation->setDate($user_date);
         $check_date = $validation->checkDate();
 
